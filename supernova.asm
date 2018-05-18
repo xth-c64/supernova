@@ -24,23 +24,24 @@ sta$0700,x
 dex
 cpx #$00
 bne scorecp
+
 ;sprite pointer
 lda #$80
 sta $07f8 ;0
 lda #$81
-sta $07f9 ;1
+sta $07f9 ;sprite 1
 lda #$82
-sta $07fa ;2
+sta $07fa ;sprite 2
 lda #$82
-sta $07fb ;3
+sta $07fb ;sprite 3
 lda #$82
-sta $07fc ;4
+sta $07fc ;sprite 4
 lda #$82
-sta $07fd ;5
+sta $07fd ;sprite 5
 lda #$82
-sta $07fe ;6
+sta $07fe ;sprite 6
 lda #$82
-sta $07ff ;7
+sta $07ff ;sprite 7
 lda #$ff 
 sta $d015 ;sprites on 
 sta $d01c ;multicolor on 
@@ -93,17 +94,17 @@ sta $d00f ;sprite7
              lda #$00
              jsr $1000 ;Initialize Richard's music
              cli
-hold         jmp loop ;We don't want to do anything else here. :)
+hold         jmp loop  ;We don't want to do anything else here. :)
               
 irq
              lda #$01
-             sta $d019 ; ACK any raster IRQs
+             sta $d019 ;ACK any raster IRQs
              jsr $1006 ;Play the music
              jmp $ea31
 ;----------------------------------------------
 loop
 
-;                    sprite2
+;                      sprite2
 lda setsprite2store
 cmp #$01
 beq sprite2up
@@ -129,7 +130,7 @@ setsprite2a
 lda #$00
 sta setsprite2store
 jmp sprite3check
-;                    sprite3
+;                      sprite3
 sprite3check
 lda setsprite2store+1
 cmp #$01
@@ -269,13 +270,12 @@ setsprite2store: !byte $00,$00,$00,$00,$00,$00
 
 
 loop000:
-lda l3      ;sprite1 an? 
+lda l3      ;sprite1 on? 
 cmp #$01
 bne loop00
 lda $d01e
 ror
 ror
-;cmp #$02
 bcc loop01
 jmp treffer ;shot hit
 loop01
@@ -336,7 +336,7 @@ bne loopjmp
 loop3
 cmp #$6f
 bne loopjmp 
-lda l3      ;sprite1 an? 
+lda l3      ;sprite1 on? 
 cmp #$01
 beq loopjmp 
 lda shots
@@ -381,6 +381,14 @@ lda#$00     ;shot hit supernova
 sta l3
 lda #$fd
 sta $d015
+inc shots   ;shot hit supernova = inc shots
+lda shots  
+cmp#$3a
+bne treffer1
+inc shots-1
+lda#$30
+sta shots
+treffer1
 inc $0400+120+38
 lda $0400+120+38
 cmp#$3a
@@ -513,4 +521,4 @@ gameover = $c000
 *=$2500
 !bin "gamescreen.bin",,2  
 *=$6000    
-!bin "bild7.kla",,2
+!bin "bild4.kla",,2
