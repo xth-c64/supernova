@@ -10,6 +10,7 @@ Sid Music by Gábor Gaspar (.sid file from csdb)
 
 Latest Updates:
 - added a better Titlepic (converted)
+- changed the Fighter Sprite
 
 
 Todo:
