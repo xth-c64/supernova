@@ -47,9 +47,9 @@ sta $d015 ;sprites on
 sta $d01c ;multicolor on 
 lda #$07
 sta $d025 ;colorsprite
-lda #$04
-sta $d026 ;colorsprite
 lda #$02
+sta $d026 ;colorsprite
+lda #$08
 sta $d027 ;colorsprite
 ;sprites x - y 
 lda #$20
@@ -468,8 +468,8 @@ nospace:
           lda $dc01
           cmp #$ef  ;waiting for space 
           bne nospace
-          jsr$fda3  ;Initialise I/O
-          jsr$e5a0  ;Set I/O Defaults
+          jsr $fda3  ;Initialise I/O
+          jsr $e5a0  ;Set I/O Defaults
           jmp $c003 ;jmp game 
 
 
@@ -481,14 +481,7 @@ gameover = $c000
 
 *=$2000      
 ;sprite0    
-!byte  $00,$00,$00,$00,$00,$00,$3f,$ff
-!byte  $fc,$00,$3f,$00,$00,$33,$00,$00
-!byte  $ff,$c0,$03,$ff,$f0,$03,$ff,$f0
-!byte  $13,$ff,$f0,$17,$ff,$f8,$17,$ff
-!byte  $f8,$17,$ff,$f8,$13,$ff,$f0,$03
-!byte  $ff,$f0,$03,$ff,$f0,$00,$ff,$c0
-!byte  $00,$33,$c0,$00,$3f,$00,$3f,$ff
-!byte  $fc,$00,$00,$00,$00,$00,$00,$82
+!bin "fighter.spr",$40
 
 
 *=$2040
@@ -513,6 +506,7 @@ gameover = $c000
 !byte  $00,$ff,$00,$00,$3c,$00,$00,$00
 !byte  $00,$00,$00,$00,$00,$00,$00,$81
 
+
 *=$0800
 !bin "charset.prg",,2  
 ;Future Fighter Menu Sid by Gábor Gaspar
@@ -521,4 +515,4 @@ gameover = $c000
 *=$2500
 !bin "gamescreen.bin",,2  
 *=$6000    
-!bin "bild4.kla",,2
+!bin "bild7.kla",,2
